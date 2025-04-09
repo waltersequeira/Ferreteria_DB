@@ -10,45 +10,45 @@ package Modelo;
  */
 public class DetalleCompra {
     
-    private int idDetalleVenta;
-    private Venta venta; // Relación con Venta
-    private Producto producto; // Relación con Producto
+     private int idDetalleCompra;
+    private int idCompra; // Relación con Compra
+    private int idProducto; // Relación con Producto
     private int cantidad;
     private float precioUnitario;
 
-    public DetalleCompra(int idDetalleVenta, Venta venta, Producto producto, int cantidad, float precioUnitario) {
-        this.idDetalleVenta = idDetalleVenta;
-        this.venta = venta;
-        this.producto = producto;
+    public DetalleCompra() {
+    }
+    
+    public DetalleCompra(int idDetalleCompra, int idCompra, int idProducto, int cantidad, float precioUnitario) {
+        this.idDetalleCompra = idDetalleCompra;
+        this.idCompra = idCompra;
+        this.idProducto = idProducto;
         this.cantidad = cantidad;
         this.precioUnitario = precioUnitario;
     }
 
-    public DetalleCompra() {
+    public int getIdDetalleCompra() {
+        return idDetalleCompra;
     }
 
-    public int getIdDetalleVenta() {
-        return idDetalleVenta;
+    public void setIdDetalleCompra(int idDetalleCompra) {
+        this.idDetalleCompra = idDetalleCompra;
     }
 
-    public void setIdDetalleVenta(int idDetalleVenta) {
-        this.idDetalleVenta = idDetalleVenta;
+    public int getIdCompra() {
+        return idCompra;
     }
 
-    public Venta getVenta() {
-        return venta;
+    public void setIdCompra(int idCompra) {
+        this.idCompra = idCompra;
     }
 
-    public void setVenta(Venta venta) {
-        this.venta = venta;
+    public int getIdProducto() {
+        return idProducto;
     }
 
-    public Producto getProducto() {
-        return producto;
-    }
-
-    public void setProducto(Producto producto) {
-        this.producto = producto;
+    public void setIdProducto(int idProducto) {
+        this.idProducto = idProducto;
     }
 
     public int getCantidad() {
@@ -66,6 +66,6 @@ public class DetalleCompra {
     public void setPrecioUnitario(float precioUnitario) {
         this.precioUnitario = precioUnitario;
     }
-    
+
     
 }
