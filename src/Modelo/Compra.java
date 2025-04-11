@@ -23,9 +23,10 @@ public class Compra {
         this.totalCompra = totalCompra;
         this.detalles = detalles;
     }
-       public Compra() {
-        throw new UnsupportedOperationException("Not supported yet."); // Generated from nbfs://nbhost/SystemFileSystem/Templates/Classes/Code/GeneratedMethodBody
+
+    public Compra() {
     }
+       
 
     public int getIdCompra() {
         return idCompra;

@@ -3,8 +3,8 @@
  * Click nbfs://nbhost/SystemFileSystem/Templates/Classes/Class.java to edit this template
  */
 package DAO;
-import Modelo.DetalleCompra;
 
+import Modelo.DetalleCompra;
 
 import Util.ConexionDB;
 import java.sql.Connection;
@@ -19,7 +19,8 @@ import java.util.List;
  * @author Pro650
  */
 public class DetalleCompraDAO {
-     public void crearDetalleCompra(DetalleCompra detalle) throws SQLException {
+
+    public void crearDetalleCompra(DetalleCompra detalle) throws SQLException {
         String sql = """
         INSERT INTO Detalles_Compras (
             id_compra, 
@@ -55,18 +56,39 @@ public class DetalleCompraDAO {
         return detalles;
     }
 
+    public void actualizarDetalleCompra(DetalleCompra detalle) throws SQLException {
+        String sql = "UPDATE Detalles_Compras SET id_compra = ?, id_producto = ?, cantidad = ?, precio_unitario = ? WHERE id_detalle_compra = ?";
+
+        try (Connection c = ConexionDB.getConnection(); PreparedStatement stmt = c.prepareStatement(sql)) {
+            stmt.setInt(1, detalle.getIdCompra());
+            stmt.setInt(2, detalle.getIdProducto());
+            stmt.setInt(3, detalle.getCantidad());
+            stmt.setFloat(4, detalle.getPrecioUnitario());
+            stmt.setInt(5, detalle.getIdDetalleCompra());
+            stmt.executeUpdate();
+        }
+    }
+
+    public void eliminarDetalleCompra(int idDetalleCompra) throws SQLException {
+        String sql = "DELETE FROM Detalles_Compras WHERE id_detalle_compra = ?";
+
+        try (Connection c = ConexionDB.getConnection(); PreparedStatement stmt = c.prepareStatement(sql)) {
+            stmt.setInt(1, idDetalleCompra);
+            stmt.executeUpdate();
+        }
+    }
+
     public static void main(String[] args) {
         try {
             DetalleCompraDAO dao = new DetalleCompraDAO();
-            List<DetalleCompra> detalles = dao.leerTodosDetallesCompra();
-            System.out.println("Lista de detalles de compra:");
-            for (DetalleCompra det : detalles) {
-                System.out.println("ID: " + det.getIdDetalleCompra()
-                        + ", Compra ID: " + det.getIdCompra()
-                        + ", Producto ID: " + det.getIdProducto()
-                        + ", Cantidad: " + det.getCantidad()
-                        + ", Precio Unitario: " + det.getPrecioUnitario());
-            }
+            DetalleCompra detalle = new DetalleCompra();
+            detalle.setIdDetalleCompra(1); // ID existente
+            detalle.setIdCompra(1);
+            detalle.setIdProducto(2);
+            detalle.setCantidad(5);
+            detalle.setPrecioUnitario(100.0f);
+            dao.actualizarDetalleCompra(detalle);
+            System.out.println("Detalle de compra actualizado.");
         } catch (SQLException e) {
             System.err.println("Error: " + e.getMessage());
         }
