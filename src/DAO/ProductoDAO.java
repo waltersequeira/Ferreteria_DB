@@ -5,6 +5,7 @@
 package DAO;
 
 import Modelo.Producto;
+
 import Util.ConexionDB;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
@@ -53,6 +54,29 @@ public class ProductoDAO {
             stmt.executeUpdate();
         }
     }
+    
+    public void crearProducto(Producto producto) throws SQLException {
+    String sql = """
+        INSERT INTO Productos (
+            nombre_producto, 
+            descripcion_producto, 
+            id_categoria, 
+            precio_unitario, 
+            stock, 
+            imagen
+        ) VALUES (?, ?, ?, ?, ?, ?)""";
+    
+    try (Connection c = ConexionDB.getConnection();
+         PreparedStatement stmt = c.prepareStatement(sql)) {
+        stmt.setString(1, producto.getNombreProducto());
+        stmt.setString(2, producto.getDescripcionProducto());
+        stmt.setInt(3, producto.getIdCategoria());
+        stmt.setFloat(4, producto.getPrecioUnitario());
+        stmt.setInt(5, producto.getStock());
+        stmt.setString(6, producto.getImagen());
+        stmt.executeUpdate();
+    }
+}
 
     public void eliminarProducto(int idProducto) throws SQLException {
         String sql = "DELETE FROM Productos WHERE id_producto = ?";

@@ -60,6 +60,16 @@ public class CategoriaDAO {
             stmt.executeUpdate();
         }
     }
+    
+    public void eliminarCategoria(int idCategoria) throws SQLException {
+    String sql = "DELETE FROM Categorias WHERE id_categoria = ?";
+    
+    try (Connection c = ConexionDB.getConnection();
+         PreparedStatement stmt = c.prepareStatement(sql)) {
+        stmt.setInt(1, idCategoria);
+        stmt.executeUpdate();
+    }
+}
 
     public static void main(String[] args) {
         try {
