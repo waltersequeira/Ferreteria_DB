@@ -47,11 +47,20 @@ public class ProductoControlador {
         }
     }
     
-    public void actualizarProducto(int idProducto, String nombreProducto, String descripcionProducto, int idCategoria,
+public Producto obtenerProductoPorId(int id_producto) {
+        try {
+            return productoDAO.obtenerProductoPorId(id_producto);
+        } catch (SQLException e) {
+            JOptionPane.showMessageDialog(null, "Error al obtener el producto: " + e.getMessage(), "Error", JOptionPane.ERROR_MESSAGE);
+            return null;
+        }
+    }
+    
+    public void actualizarProducto(int id_producto, String nombreProducto, String descripcionProducto, int idCategoria,
             float precioUnitario, int stock, String imagen) {
         try {
             Producto producto = new Producto();
-            producto.setIdProducto(idProducto);
+            producto.setId_producto(id_producto);
             producto.setNombreProducto(nombreProducto);
             producto.setDescripcionProducto(descripcionProducto);
             producto.setIdCategoria(idCategoria);
@@ -65,9 +74,9 @@ public class ProductoControlador {
         }
     }
     
-    public void eliminarProducto(int idProducto) {
+    public void eliminarProducto(int id_producto) {
         try {
-            productoDAO.eliminarProducto(idProducto);
+            productoDAO.eliminarProducto(id_producto);
             JOptionPane.showMessageDialog(null, "Producto eliminado exitosamente.", "Éxito", JOptionPane.INFORMATION_MESSAGE);
         } catch (SQLException e) {
             JOptionPane.showMessageDialog(null, "Error al eliminar el producto: " + e.getMessage(), "Error", JOptionPane.ERROR_MESSAGE);
@@ -83,7 +92,7 @@ public class ProductoControlador {
         if (productos != null) {
             System.out.println("Lista de productos:");
             for (Producto p : productos) {
-                System.out.println("ID: " + p.getIdProducto()
+                System.out.println("ID: " + p.getId_producto()
                         + ", Nombre: " + p.getNombreProducto()
                         + ", Precio: " + p.getPrecioUnitario());
             }

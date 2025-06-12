@@ -27,7 +27,7 @@ public class ProductoDAO {
         try (Connection c = ConexionDB.getConnection(); PreparedStatement stmt = c.prepareStatement(sql); ResultSet rs = stmt.executeQuery()) {
             while (rs.next()) {
                 Producto producto = new Producto();
-                producto.setIdProducto(rs.getInt("id_producto"));
+                producto.setId_producto(rs.getInt("id_producto"));
                 producto.setNombreProducto(rs.getString("nombre_producto"));
                 producto.setDescripcionProducto(rs.getString("descripcion_producto"));
                 producto.setIdCategoria(rs.getInt("id_categoria"));
@@ -39,6 +39,28 @@ public class ProductoDAO {
         }
         return productos;
     }
+    
+    public Producto obtenerProductoPorId(int idProducto) throws SQLException {
+    String sql = "SELECT * FROM Productos WHERE id_producto = ?";
+    Producto producto = null;
+
+    try (Connection c = ConexionDB.getConnection(); PreparedStatement stmt = c.prepareStatement(sql)) {
+        stmt.setInt(1, idProducto);
+        try (ResultSet rs = stmt.executeQuery()) {
+            if (rs.next()) {
+                producto = new Producto();
+                producto.setId_producto(rs.getInt("id_producto"));
+                producto.setNombreProducto(rs.getString("nombre_producto"));
+                producto.setDescripcionProducto(rs.getString("descripcion_producto"));
+                producto.setIdCategoria(rs.getInt("id_categoria"));
+                producto.setPrecioUnitario(rs.getFloat("precio_unitario"));
+                producto.setStock(rs.getInt("stock"));
+                producto.setImagen(rs.getString("imagen"));
+            }
+        }
+    }
+    return producto;
+}
 
     public void actualizarProducto(Producto producto) throws SQLException {
         String sql = "UPDATE Productos SET nombre_producto = ?, descripcion_producto = ?, id_categoria = ?, precio_unitario = ?, stock = ?, imagen = ? WHERE id_producto = ?";
@@ -50,7 +72,7 @@ public class ProductoDAO {
             stmt.setFloat(4, producto.getPrecioUnitario());
             stmt.setInt(5, producto.getStock());
             stmt.setString(6, producto.getImagen());
-            stmt.setInt(7, producto.getIdProducto());
+            stmt.setInt(7, producto.getId_producto());
             stmt.executeUpdate();
         }
     }
@@ -91,7 +113,7 @@ public class ProductoDAO {
         try {
             ProductoDAO dao = new ProductoDAO();
             Producto producto = new Producto();
-            producto.setIdProducto(1); // ID existente
+            producto.setId_producto(1); // ID existente
             producto.setNombreProducto("Laptop Actualizada");
             producto.setDescripcionProducto("Laptop de alta gama");
             producto.setIdCategoria(1);

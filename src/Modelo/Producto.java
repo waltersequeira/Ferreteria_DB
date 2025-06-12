@@ -10,7 +10,7 @@ package Modelo;
  */
 public class Producto {
     
-    private int idProducto;
+    private int id_producto;
     private String nombreProducto;
     private String descripcionProducto;
     private int idCategoria; // Relación con Categoria
@@ -18,8 +18,11 @@ public class Producto {
     private int stock;
     private String imagen;
 
-    public Producto(int idProducto, String nombreProducto, String descripcionProducto, int idCategoria, float precioUnitario, int stock, String imagen) {
-        this.idProducto = idProducto;
+    public Producto() {
+    }
+
+    public Producto(int id_producto, String nombreProducto, String descripcionProducto, int idCategoria, float precioUnitario, int stock, String imagen) {
+        this.id_producto = id_producto;
         this.nombreProducto = nombreProducto;
         this.descripcionProducto = descripcionProducto;
         this.idCategoria = idCategoria;
@@ -28,15 +31,12 @@ public class Producto {
         this.imagen = imagen;
     }
 
-    public Producto() {
+    public int getId_producto() {
+        return id_producto;
     }
 
-    public int getIdProducto() {
-        return idProducto;
-    }
-
-    public void setIdProducto(int idProducto) {
-        this.idProducto = idProducto;
+    public void setId_producto(int id_producto) {
+        this.id_producto = id_producto;
     }
 
     public String getNombreProducto() {
@@ -87,6 +87,5 @@ public class Producto {
         this.imagen = imagen;
     }
 
-    
     
 }

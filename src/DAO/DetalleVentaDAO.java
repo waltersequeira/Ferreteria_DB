@@ -10,6 +10,9 @@ import Util.ConexionDB;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.SQLException;
+import java.util.ArrayList;
+import java.util.List;
+import java.sql.ResultSet;
 
 /**
  *
@@ -55,6 +58,26 @@ public class DetalleVentaDAO {
             stmt.setInt(1, idDetalleVenta);
             stmt.executeUpdate();
         }
+    }
+    
+        public List<DetalleVenta> leerTodosDetallesVenta() throws SQLException {
+        String sql = "SELECT * FROM Detalles_Ventas";
+        List<DetalleVenta> detalles = new ArrayList<>();
+
+        try (Connection c = ConexionDB.getConnection();
+             PreparedStatement stmt = c.prepareStatement(sql);
+             ResultSet rs = stmt.executeQuery()) {
+            while (rs.next()) {
+                DetalleVenta detalle = new DetalleVenta();
+                detalle.setIdDetalleVenta(rs.getInt("id_detalle_venta"));
+                detalle.setIdVenta(rs.getInt("id_venta"));
+                detalle.setIdProducto(rs.getInt("id_producto"));
+                detalle.setCantidad(rs.getInt("cantidad"));
+                detalle.setPrecioUnitario(rs.getFloat("precio_unitario"));
+                detalles.add(detalle);
+            }
+        }
+        return detalles;
     }
 
     public static void main(String[] args) {

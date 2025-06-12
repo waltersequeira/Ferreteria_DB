@@ -50,6 +50,15 @@ public class EmpleadoControlador {
         }
     }
   
+  public Empleado obtenerEmpleadoPorId(int idEmpleado) {
+        try {
+            return empleadoDAO.obtenerEmpleadoPorId(idEmpleado);
+        } catch (SQLException e) {
+            JOptionPane.showMessageDialog(null, "Error al buscar el empleado: " + e.getMessage());
+            return null;
+        }
+    }
+  
    public void actualizarEmpleado(int idEmpleado, String primerNombre, String segundoNombre, String primerApellido, 
                                    String segundoApellido, String celular, String cargo, Date fechaContratacion) {
         try {
